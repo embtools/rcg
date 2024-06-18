@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       image:
-        default: marcusjbaker/rcg:latest
+        default: marcusjbaker/rcg
         required: false 
         type: string
     secrets:
@@ -25,6 +25,7 @@ jobs:
       - id: checkout
         name: Checkout repo
         uses: actions/checkout@v4
+
       - id: build
         name: Build image
         uses: redhat-actions/buildah-build@v2
@@ -33,6 +34,7 @@ jobs:
           tags: latest ${{ github.sha }}
           containerfiles: |
             ./Dockerfile
+
       - id: push
         name: Push image to registry
         uses: redhat-actions/push-to-registry@v2
@@ -41,6 +43,7 @@ jobs:
           tags: ${{ steps.build.outputs.tags }}
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
       - name: Print image url
         run: echo "Image pushed to ${{ steps.push.outputs.registry-paths }}"
         #- run: docker compose build helloworld
