@@ -3,7 +3,7 @@ on:
   workflow_call:
 jobs:
   deploy:
-    environment: "${{ (github.ref_name == 'main') && 'production' || github.ref_name }}"
+    environment: "${{ ((github.ref_name == 'main') && 'production') || github.ref_name }}"
     runs-on: linux 
     services:
       helloworld:
