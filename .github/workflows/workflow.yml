@@ -8,13 +8,15 @@ jobs:
   ci:
     environment: ${{ github.ref_name }}
     runs-on: ubuntu-latest
-    uses: ./.github/workflows/ci.yml
+    steps:
+      - uses: ./.github/workflows/ci.yml
 
   cd:
     needs: ci
     environment: ${{ github.ref_name }}
     runs-on: ubuntu-latest
-    uses: ./.github/workflows/cd.yml
+    steps:
+      - uses: ./.github/workflows/cd.yml
 
   log-failure:
     needs: [ci, cd]
