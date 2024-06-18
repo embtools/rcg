@@ -3,13 +3,13 @@ on:
   workflow_call:
 jobs:
   deploy:
-    environment: ${{ (github.ref_name == "main") ? "production" : github_ref.name }}
+    environment: "${{ (github.ref_name == 'main') ? 'production' : github_ref.name }}"
     runs-on: linux 
     services:
       helloworld:
         image: marcusjbaker/rcg:latest
         ports:
-            - 3000
+          - 3000
         volumes:
           - data:/tmp/data
     steps:
