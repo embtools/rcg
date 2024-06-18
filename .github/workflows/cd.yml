@@ -22,7 +22,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - uses: actions/checkout@v4
-      - run: docker compose pull helloworld
-      - run: docker compose up helloworld
+      - run: docker pull ${{ inputs.image }}
+      - run: docker run -p 127.0.0.1:3000:8080/tcp ${{ inputs.image }} 
 
