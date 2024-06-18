@@ -9,6 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - shell: script -e -c {0}
-        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        run: 'echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin'
       - run: docker compose build
       - run: docker compose push
