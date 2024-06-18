@@ -3,10 +3,10 @@ on:
   workflow_call:
 jobs:
   deploy:
-    container: node:alpine3.20
     services:
       helloworld:
         image: marcusjbaker/rcg:latest
         ports:
             - 3000:3000
-
+    steps:
+      - run: curl -o - http://helloworld:3000
