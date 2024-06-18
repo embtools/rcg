@@ -21,8 +21,8 @@ jobs:
         credentials:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      ports:
-        - 300:8080
+        ports:
+          - 300:8080
     steps:
       - run: sleep 60 
 
