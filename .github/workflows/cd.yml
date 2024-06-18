@@ -1,16 +1,28 @@
 name: CD 
 on:
   workflow_call:
+    inputs:
+      image:
+        default: marcusjbaker/rcg:latest
+        required: false 
+        type: string
+    secrets:
+      DOCKER_HUB_USERNAME:
+        required: true
+      DOCKER_HUB_TOKEN:
+        required: true
 
 jobs:
   deploy:
-    runs-on: self-hosted 
-    services:
-      helloworld:
-        image: marcusjbaker/rcg:latest
-        ports:
-          - 3000
-        volumes:
-          - data:/tmp/data
+    runs-on: self-hosted
+    env:
+      IMAGE: ${{ inputs.image }}
     steps:
-      - run: while 1
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - run: docker compose pull helloworld
+      - run: docker compose up helloworld
+
