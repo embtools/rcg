@@ -15,7 +15,7 @@ jobs:
 
   failed:
     needs: [ci, cd]
-    run-on: self-hostedi
+    runs-on: self-hostedi
     if: ${{ failure() }}
     permissions:
       contents: write
