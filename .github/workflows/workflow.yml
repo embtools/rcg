@@ -25,5 +25,8 @@ jobs:
       - run: git commit -m 'failure log'
       - run: git push
   
-
-
+  healtheck:
+    needs: [ci, cd]
+    run-on: self-hosted
+    steps:
+      - run: curl -o - http://helloworld:3000

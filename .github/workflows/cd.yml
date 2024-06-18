@@ -2,12 +2,12 @@ name: CD
 on:
   workflow_call:
 jobs:
-  runs-on: self-hosted
   deploy:
+    #    runs-on: self-hosted
     services:
       helloworld:
         image: marcusjbaker/rcg:latest
         ports:
-            - 3000:3000
+            - 3000
     steps:
-      - run: curl -o - http://helloworld:3000
+      - run: while 1
