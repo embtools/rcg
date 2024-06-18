@@ -27,6 +27,6 @@ jobs:
   
   healtheck:
     needs: [log-failure]
-    run-on: self-hosted
+    runs-on: self-hosted
     steps:
       - run: curl -o - http://helloworld:3000
