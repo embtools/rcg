@@ -3,6 +3,7 @@ on:
   workflow_call:
 jobs:
   deploy:
+    container: node:alpine3.20
     services:
       helloworld:
         image: marcusjbaker/rcg:latest
