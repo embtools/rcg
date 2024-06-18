@@ -5,14 +5,14 @@ on:
       - main
 
 jobs:
-  ci:
+  CI:
     uses: ./.github/workflows/ci.yml
     secrets:
       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-  cd:
-    needs: ci
+  CD:
+    needs: CI 
     uses: ./.github/workflows/cd.yml
     secrets:
       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}

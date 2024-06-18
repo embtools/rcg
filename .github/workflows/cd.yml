@@ -15,13 +15,14 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    env:
-      IMAGE: ${{ inputs.image }}
-    steps:
-      - uses: docker/login-action@v3
-        with:
+    services:
+      web:
+        image: ${{ inputs.image }}
+        credentials:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - run: docker pull ${{ inputs.image }}
-      - run: docker run -p 127.0.0.1:3000:8080/tcp ${{ inputs.image }} 
+      ports:
+        - 300:8080
+    steps:
+      - run: sleep 60 
 
