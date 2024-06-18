@@ -22,7 +22,7 @@ jobs:
 
   log-failure:
     needs: [ci, cd]
-    runs-on: self-hosted
+    runs-on: arc runners
     if: ${{ failure() }}
     permissions:
       contents: write
@@ -35,6 +35,6 @@ jobs:
   
   healtheck:
     needs: [log-failure]
-    runs-on: self-hosted
+    runs-on: arc runners
     steps:
       - run: curl -o - http://helloworld:3000
