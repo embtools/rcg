@@ -10,7 +10,6 @@ jobs:
 
   cd:
     needs: ci
-    runs-on: self-hosted
     uses: ./.github/workflows/cd.yml
 
   failed:
