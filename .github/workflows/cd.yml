@@ -3,11 +3,14 @@ on:
   workflow_call:
 jobs:
   deploy:
-    #    runs-on: self-hosted
+
+    runs-on: linux 
     services:
       helloworld:
         image: marcusjbaker/rcg:latest
         ports:
             - 3000
+        volumes:
+          - data:/tmp/data
     steps:
       - run: while 1
