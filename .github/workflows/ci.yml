@@ -4,7 +4,7 @@ on:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name }}
+    environment: ${{ (github.ref_name == "main") ? "production" : github_ref.name }}
     env:
       IMAGE: marcusjbaker/rcg:latest 
     steps:
