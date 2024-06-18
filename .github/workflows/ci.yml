@@ -40,6 +40,7 @@ jobs:
         uses: redhat-actions/push-to-registry@v2
         with:
           image: ${{ steps.build.outputs.image }}
+          registry: docker.io
           tags: ${{ steps.build.outputs.tags }}
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
