@@ -1,0 +1,7 @@
+services:
+  rcg:
+    image: ${IMAGE:-localhost:5000/rcg-app:latest}
+    ports:
+      - "127.0.0.1:8080:8080"
+    build:
+      context: .
