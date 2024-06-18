@@ -6,5 +6,6 @@ jobs:
     env:
       IMAGE: marcusjbaker/rcg:latest 
     steps:
-      #      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - run: docker compose build
+      - run: docker compose push
