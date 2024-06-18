@@ -25,4 +25,4 @@ jobs:
       - uses: actions/checkout@v4
       - run: docker compose build helloworld
       - run: docker compose push helloworld
-      - run: IMAGE="$( echo ${{ inputs.IMAGE }} | sed -Ee s/:latest/$GITHUB_SHA/ }} )" && docker tag ${{ inputs.IMAGE }} $IMAGE && docker push $IMAGE
+      - run: IMAGE="$( echo ${{ inputs.IMAGE }} | sed -Ee s/:latest/$GITHUB_SHA/ )" && docker tag ${{ inputs.IMAGE }} $IMAGE && docker push $IMAGE
