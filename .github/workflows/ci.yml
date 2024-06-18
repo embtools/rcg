@@ -2,26 +2,23 @@ name: CI
 on:
   workflow_call:
     inputs:
-      image:
-        default: marcusjbaker/rcg
-        required: false 
+      DOCKER_USERNAME:
+        required: true
+        type: string
+      DOCKER_REGISTRY:
+        required: true
+        type: string
+      DOCKER_IMAGE:
+        required: true 
         type: string
     secrets:
-      DOCKER_HUB_USERNAME:
-        required: true
-      DOCKER_HUB_TOKEN:
+      DOCKER_TOKEN:
         required: true
 
 jobs:
   image:
     runs-on: ubuntu-latest
-    env:
-      IMAGE: ${{ inputs.image }}
     steps:
-      #- uses: docker/login-action@v3
-      #  with:
-      #    username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      #    password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - id: checkout
         name: Checkout repo
         uses: actions/checkout@v4
@@ -30,7 +27,7 @@ jobs:
         name: Build image
         uses: redhat-actions/buildah-build@v2
         with:
-          image: ${{ inputs.image }}
+          image: ${{ inputs.DOCKER_IMAGE }}
           tags: latest ${{ github.sha }}
           containerfiles: |
             ./Dockerfile
@@ -40,13 +37,10 @@ jobs:
         uses: redhat-actions/push-to-registry@v2
         with:
           image: ${{ steps.build.outputs.image }}
-          registry: docker.io
+          registry: ${{ inputs.DOCKER_REGISTRY }}
           tags: ${{ steps.build.outputs.tags }}
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          username: ${{ inputs.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Print image url
         run: echo "Image pushed to ${{ steps.push.outputs.registry-paths }}"
-        #- run: docker compose build helloworld
-        #- run: docker compose push helloworld
-        #- run: IMAGE="$( echo ${{ inputs.IMAGE }} | sed -Ee s/:latest$/:$GITHUB_SHA/ )" && docker tag ${{ inputs.IMAGE }} $IMAGE && docker push $IMAGE
