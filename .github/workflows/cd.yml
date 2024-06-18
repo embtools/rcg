@@ -3,7 +3,7 @@ on:
   workflow_call:
 jobs:
   deploy:
-    runs-on: linux 
+    runs-on: self-hosted 
     services:
       helloworld:
         image: marcusjbaker/rcg:latest
