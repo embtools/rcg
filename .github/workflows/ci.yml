@@ -1,14 +1,9 @@
 name: CI 
 on:
   workflow_call:
-    inputs:
-      environment:
-        required: true
-        type: string
 
 jobs:
   build-and-push-image:
-    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     env:
       IMAGE: marcusjbaker/rcg:latest 

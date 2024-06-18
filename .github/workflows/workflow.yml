@@ -7,14 +7,10 @@ on:
 jobs:
   ci:
     uses: ./.github/workflows/ci.yml
-    with:
-      environment: ${{ github.ref_name }}
 
-#    cd:
-#    needs: ci
-#    uses: ./.github/workflows/cd.yml
-#    with:
-#      environment: ${{ github.ref_name }}
+  cd:
+    needs: ci
+    uses: ./.github/workflows/cd.yml
 
 #  log-failure:
 #    needs: [ci, cd]
