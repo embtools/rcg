@@ -5,6 +5,7 @@ on:
       image:
         default: marcusjbaker/rcg:latest
         required: true
+        type: string
     secrets:
       DOCKER_HUB_USERNAME:
         required: true
