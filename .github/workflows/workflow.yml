@@ -9,32 +9,28 @@ jobs:
     uses: ./.github/workflows/ci.yml
     with:
       environment: ${{ github.ref_name }}
-      #runs-on: ubuntu-latest
-      #steps:
 
-  cd:
-    needs: ci
-    uses: ./.github/workflows/cd.yml
-    with:
-      environment: ${{ github.ref_name }}
-      #runs-on: ubuntu-latest
-      #steps:
+#    cd:
+#    needs: ci
+#    uses: ./.github/workflows/cd.yml
+#    with:
+#      environment: ${{ github.ref_name }}
 
-  log-failure:
-    needs: [ci, cd]
-    runs-on: self-hosted 
-    if: ${{ failure() }}
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - run: echo "$(date +'%Y-%m-%dT%H:%M:%S')" >> log.txt
-      - run: git add log.txt
-      - run: git commit -m 'failure log'
-      - run: git push
+#  log-failure:
+#    needs: [ci, cd]
+#    runs-on: self-hosted 
+#    if: ${{ failure() }}
+#    permissions:
+#      contents: write
+#    steps:
+#      - uses: actions/checkout@v4
+#      - run: echo "$(date +'%Y-%m-%dT%H:%M:%S')" >> log.txt
+#      - run: git add log.txt
+#      - run: git commit -m 'failure log'
+#      - run: git push
   
-  healtheck:
-    needs: [log-failure]
-    runs-on: self-hosted 
-    steps:
-      - run: curl -o - http://helloworld:3000
+#  healtheck:
+#    needs: [log-failure]
+#    runs-on: self-hosted 
+#    steps:
+#      - run: curl -o - http://helloworld:3000

@@ -5,10 +5,11 @@ on:
       environment:
         required: true
         type: string
+
 jobs:
   build-and-push-image:
-    runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
     env:
       IMAGE: marcusjbaker/rcg:latest 
     steps:
