@@ -7,4 +7,4 @@ jobs:
       IMAGE: marcusjbaker/rcg:latest 
     steps:
       - uses: actions/checkout@v4
-      - docker compose build
+      - run: docker compose build
