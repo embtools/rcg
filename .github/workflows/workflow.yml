@@ -10,8 +10,8 @@ jobs:
 
   cd:
     needs: ci
-    uses: ./.github/workflows/cd.yml
     runs-on: self-hosted
+    uses: ./.github/workflows/cd.yml
 
   failed:
     needs: [ci, cd]
