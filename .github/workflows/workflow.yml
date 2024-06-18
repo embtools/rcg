@@ -7,14 +7,16 @@ on:
 jobs:
   ci:
     uses: ./.github/workflows/ci.yml
-    environment: ${{ github.ref_name }}
+    with:
+      environment: ${{ github.ref_name }}
       #runs-on: ubuntu-latest
       #steps:
 
   cd:
     needs: ci
     uses: ./.github/workflows/cd.yml
-    environment: ${{ github.ref_name }}
+    with:
+      environment: ${{ github.ref_name }}
       #runs-on: ubuntu-latest
       #steps:
 
