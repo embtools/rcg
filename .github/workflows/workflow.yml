@@ -1,7 +1,8 @@
 name: RCG Exercise \#1 
 on:
   push: 
-    - main
+    branches:
+      - main
 
 jobs:
   ci:
