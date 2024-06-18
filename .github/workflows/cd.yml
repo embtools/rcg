@@ -1,8 +1,8 @@
-name: CI 
+name: CD 
 on:
   workflow_call:
 jobs:
-  build-and-push-image:
+  deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name }}
     env:
@@ -13,5 +13,5 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - uses: actions/checkout@v4
-      - run: docker compose build helloworld
-      - run: docker compose push helloworld
+      - run: docker compose pull helloworld || true
+      - run: docker compose up helloworld

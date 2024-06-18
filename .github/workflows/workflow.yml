@@ -1,0 +1,29 @@
+name: RCG Exercise \#1 
+on:
+  push: 
+    - main
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  cd:
+    needs: ci
+    uses: ./.github/workflows/cd.yml
+
+  failed:
+    needs: [ci, cd]
+    run-on: [self-hosted]
+    if: ${{ failure() }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "$(date +'%Y-%m-%dT%H:%M:%S')" >> log.txt
+      - run: git add log.txt
+      - run: git commit -m 'failure log'
+      - run: git push
+      - 
+  
+
+

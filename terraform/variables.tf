@@ -17,7 +17,7 @@ variable "github_docker_hub_token_secret" {
 
 variable "github_docker_hub_username_secret" {
   type    = string
-  default = "DOCKER_HUB_SECRET"
+  default = "DOCKER_HUB_USERNAME"
 }
 
 
