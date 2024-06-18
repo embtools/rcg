@@ -10,10 +10,11 @@ jobs:
   cd:
     needs: ci
     uses: ./.github/workflows/cd.yml
+    runs-on: self-hosted
 
   failed:
     needs: [ci, cd]
-    run-on: [self-hosted]
+    run-on: self-hostedi
     if: ${{ failure() }}
     permissions:
       contents: write
