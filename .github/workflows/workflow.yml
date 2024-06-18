@@ -8,10 +8,6 @@ jobs:
   ci:
     uses: ./.github/workflows/ci.yml
     environment: ${{ github.ref_name }}
-    secrets:
-      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-
       #runs-on: ubuntu-latest
       #steps:
 
@@ -19,9 +15,6 @@ jobs:
     needs: ci
     uses: ./.github/workflows/cd.yml
     environment: ${{ github.ref_name }}
-    secrets:
-      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       #runs-on: ubuntu-latest
       #steps:
 

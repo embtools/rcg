@@ -1,9 +1,14 @@
 name: CD 
 on:
   workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
 jobs:
   deploy:
     runs-on: self-hosted 
+    environment: ${{ inputs.environment }}
     services:
       helloworld:
         image: marcusjbaker/rcg:latest
