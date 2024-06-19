@@ -21,7 +21,7 @@ jobs:
     steps:
       - id: apt
         name: apt-get install
-        run: sudo apt-get install -y podman
+        run: sudo apt-get install -y qemu-system podman
       - run: podman machine init
       - run: podman machine start
       - id: login
