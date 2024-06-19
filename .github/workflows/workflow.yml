@@ -2,7 +2,7 @@ name: RCG Exercise \#1
 on:
   push:
     branches:
-      - $default-branch
+      - main
 
 jobs:
 
