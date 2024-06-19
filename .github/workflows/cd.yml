@@ -19,6 +19,9 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
+      - id: apt
+        name: apt-get install
+        run: apt-get install podman
       - id: login
         name: Podman login
         uses: redhat-actions/podman-login@v1
