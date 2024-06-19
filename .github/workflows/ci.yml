@@ -23,6 +23,7 @@ jobs:
         name: Checkout repo
         uses: actions/checkout@v4
 
+
       - id: build
         name: Build image
         uses: redhat-actions/buildah-build@v2
@@ -31,6 +32,7 @@ jobs:
           tags: latest ${{ github.sha }}
           containerfiles: |
             ./Dockerfile
+
 
       - id: push
         name: Push image to registry
@@ -43,5 +45,28 @@ jobs:
           username: ${{ inputs.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
+
       - name: Print image url
         run: echo "Image pushed to ${{ steps.push.outputs.registry-paths }}"
+
+
+      - id: build-runner
+        name: Build runner image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
+          tags: runner-latest runner-${{ github.sha }}
+          target: runner
+          containerfiles: |
+            ./runner/Dockerfile
+
+      - id: push-runner
+        name: Push runner image to registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: rcg
+          registry: ${{ inputs.DOCKER_REGISTRY }}
+          tags: ${{ steps.build-runner.outputs.tags }}
+          username: ${{ inputs.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
