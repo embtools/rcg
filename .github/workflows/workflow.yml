@@ -2,7 +2,8 @@ name: RCG Exercise \#1
 on:
   push:
     branches:
-      - main
+      - $default-branch
+
 vars:
   DOCKER_IMAGE: rcg
 

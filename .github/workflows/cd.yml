@@ -27,6 +27,9 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
+    env:
+      IMAGE: ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
     steps:
-      - run: docker run -p 127.0.0.1:${{ inputs.HOST_PORT }}:${{ inputs.DOCKER_PORT }} ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
+      - run: docker pull $IMAGE
+      - run: docker run -p 127.0.0.1:${{ inputs.HOST_PORT }}:${{ inputs.DOCKER_PORT }} $IMAGE
 
