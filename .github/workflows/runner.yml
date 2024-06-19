@@ -1,0 +1,52 @@
+name: Runner 
+on:
+  workflow_call:
+    inputs:
+      DOCKER_USERNAME:
+        required: true
+        type: string
+      DOCKER_REGISTRY:
+        required: true
+        type: string
+      DOCKER_IMAGE:
+        required: true 
+        type: string
+    secrets:
+      DOCKER_TOKEN:
+        required: true
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout repo
+        uses: actions/checkout@v4
+
+
+      - id: build
+        name: Build runner image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
+          tags: runner-latest runner-${{ github.sha }}
+          extra-args: |
+            --target runner
+          containerfiles: |
+            ./runner/Dockerfile
+
+      - id: push
+        name: Push runner image to registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: rcg
+          registry: ${{ inputs.DOCKER_REGISTRY }}
+          tags: ${{ steps.build.outputs.tags }}
+          username: ${{ inputs.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Get registry paths
+        run: echo "REGISTRY_PATHS=${{ steps.push.outputs.registry-paths }}" >> $GITHUB_OUTPUT
+
+
+

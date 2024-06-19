@@ -5,6 +5,15 @@ on:
       - main
 
 jobs:
+  Runner:
+    uses: ./.github/workflows/runner.yml
+    secrets:
+      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+    with:
+      DOCKER_IMAGE: rcg 
+      DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
+      DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+
   CI:
     uses: ./.github/workflows/ci.yml
     secrets:
@@ -15,7 +24,7 @@ jobs:
       DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
 
   CD:
-    needs: CI 
+    needs: [Runner, CI]
     uses: ./.github/workflows/cd.yml
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
