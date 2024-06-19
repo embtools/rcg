@@ -21,8 +21,8 @@ jobs:
     steps:
       - id: apt
         run: sudo apt-get update -y && sudo apt-get install -y openssh-client qemu-system podman xz-utils
-      - run: podman machine init
-      - run: podman machine start
+          #- run: podman machine init
+          #- run: podman machine start
       - id: login
         name: Podman login
         uses: redhat-actions/podman-login@v1
