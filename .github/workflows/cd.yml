@@ -2,15 +2,24 @@ name: CD
 on:
   workflow_call:
     inputs:
-      DOCKER_USERNAME:
-        required: true
-        type: string
-      DOCKER_REGISTRY:
-        required: true
-        type: string
       DOCKER_IMAGE:
         required: true 
         type: string
+      DOCKER_PORT:
+        required: false 
+        type: string
+        default: 3000
+      DOCKER_REGISTRY:
+        required: true
+        type: string
+      DOCKER_USERNAME:
+        required: true
+        type: string
+      HOST_PORT:
+        required: false
+        type: string
+        default: 3000
+
     secrets:
       DOCKER_TOKEN:
         required: true
@@ -19,15 +28,5 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - id: apt
-        run: sudo apt-get update -y && sudo apt-get install -y openssh-client qemu-system podman xz-utils
-          #- run: podman machine init
-          #- run: podman machine start
-      - id: login
-        name: Podman login
-        uses: redhat-actions/podman-login@v1
-        with:
-          username: ${{ inputs.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-          registry: ${{ inputs.DOCKER_REGISTRY }}
+      - run: docker run -p 127.0.0.1:${{ inputs.HOST_PORT }}:${{ inputs.DOCKER_PORT }} ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
 

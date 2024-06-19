@@ -38,8 +38,7 @@ jobs:
         name: Push image to registry
         uses: redhat-actions/push-to-registry@v2
         with:
-          #image: ${{ steps.build.outputs.image }}
-          image: rcg
+          image: ${{ inputs.DOCKER_IMAGE }} 
           registry: ${{ inputs.DOCKER_REGISTRY }}
           tags: ${{ steps.build.outputs.tags }}
           username: ${{ inputs.DOCKER_USERNAME }}

@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+vars:
+  DOCKER_IMAGE: rcg
 
 jobs:
 
@@ -11,7 +13,7 @@ jobs:
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
     with:
-      DOCKER_IMAGE: rcg 
+      DOCKER_IMAGE: ${{ vars.DOCKER_IMAGE }} 
       DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
       DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
 
@@ -21,25 +23,25 @@ jobs:
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
     with:
-      DOCKER_IMAGE: rcg
+      DOCKER_IMAGE: ${{ vars.DOCKER_IMAGE }} 
       DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
       DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
 
-#  log-failure:
-#    needs: [ci, cd]
-#    runs-on: self-hosted 
-#    if: ${{ failure() }}
-#    permissions:
-#      contents: write
-#    steps:
-#      - uses: actions/checkout@v4
-#      - run: echo "$(date +'%Y-%m-%dT%H:%M:%S')" >> log.txt
-#      - run: git add log.txt
-#      - run: git commit -m 'failure log'
-#      - run: git push
+  log-failure:
+    needs: [CI, CD]
+    runs-on: self-hosted 
+    if: ${{ failure() }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "$(date +'%Y-%m-%dT%H:%M:%S')" >> log.txt
+      - run: git add log.txt
+      - run: git commit -m 'failure log'
+      - run: git push
   
-#  healtheck:
-#    needs: [log-failure]
-#    runs-on: self-hosted 
-#    steps:
-#      - run: curl -o - http://helloworld:3000
+  healtheck:
+    needs: [CD]
+    runs-on: self-hosted 
+    steps:
+      - run: curl -o - http://helloworld:3000
