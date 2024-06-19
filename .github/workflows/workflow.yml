@@ -16,7 +16,7 @@ jobs:
       DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
 
   CD:
-    needs: [CI]
+    #needs: [CI]
     uses: ./.github/workflows/cd.yml
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}

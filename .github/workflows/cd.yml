@@ -27,6 +27,7 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
+    container: docker:dind-rootless
     env:
       IMAGE: ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
     steps:
