@@ -27,7 +27,7 @@ jobs:
         name: Build image
         uses: redhat-actions/buildah-build@v2
         with:
-          image: ${{ inputs.DOCKER_IMAGE }}
+          image: ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
           tags: latest ${{ github.sha }}
           containerfiles: |
             ./Dockerfile

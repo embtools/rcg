@@ -2,14 +2,17 @@ name: CD
 on:
   workflow_call:
     inputs:
-      image:
-        default: marcusjbaker/rcg:latest
-        required: false 
+      DOCKER_USERNAME:
+        required: true
+        type: string
+      DOCKER_REGISTRY:
+        required: true
+        type: string
+      DOCKER_IMAGE:
+        required: true 
         type: string
     secrets:
-      DOCKER_HUB_USERNAME:
-        required: true
-      DOCKER_HUB_TOKEN:
+      DOCKER_TOKEN:
         required: true
 
 jobs:
@@ -17,12 +20,12 @@ jobs:
     runs-on: self-hosted
     services:
       web:
-        image: ${{ inputs.image }}
+        image: ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
         credentials:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          username: ${{ inputs.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
         ports:
-          - 300:8080
+          - 3000:8080
     steps:
       - run: sleep 60 
 
