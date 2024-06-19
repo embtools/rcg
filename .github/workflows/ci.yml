@@ -56,7 +56,8 @@ jobs:
         with:
           image: ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
           tags: runner-latest runner-${{ github.sha }}
-          target: runner
+          extra-args: |
+            --target runner
           containerfiles: |
             ./runner/Dockerfile
 
