@@ -18,14 +18,12 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    services:
-      web:
-        image: ${{ inputs.DOCKER_REGISTRY }}/${{ inputs.DOCKER_IMAGE }}
-        credentials:
+    steps:
+      - id: login
+        name: Podman login
+        uses: redhat-actions/podman-login@v1
+        with:
           username: ${{ inputs.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-        ports:
-          - 3000:8080
-    steps:
-      - run: sleep 60 
+          registry: ${{ inputs.DOCKER_REGISTRY }}
 
