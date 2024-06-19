@@ -4,16 +4,13 @@ on:
     branches:
       - main
 
-env:
-  DOCKER_IMAGE: rcg
-
 jobs:
   CI:
     uses: ./.github/workflows/ci.yml
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
     with:
-      DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
+      DOCKER_IMAGE: rcg 
       DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
       DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
 
@@ -23,7 +20,7 @@ jobs:
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
     with:
-      DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
+      DOCKER_IMAGE: rcg
       DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
       DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
 
